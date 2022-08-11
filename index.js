@@ -12,7 +12,10 @@ document.addEventListener('DOMContentLoaded', () =>{
 
 //GET shows from API via function
 function getMakeup(){
+    const info =document.getElementById('info')
     const ul = document.getElementById('makeup-list')
+    info.innerHTML = ''
+    ul.innerHTML = ''
     //only need one parameter for Fetch, bc its a GET request; config object is only needed if it's not a GET request
     //fetch allows for the rest of the page to be loaded/execution to continue; allows for asynchronous execution
     // first fetch line, send a GET request, returns a promise object 
@@ -23,11 +26,12 @@ function getMakeup(){
         data.forEach(products => {
             ul.innerHTML += `
             <li><a href="#" data-id="${products.id}">${products.name}</a></li>
-
             `
         })
 
         attachClicksToLinks()
+
+        
     })
     
 }
@@ -46,7 +50,7 @@ const attachClicksToLinks = () => {
 //this should display the products that appear in the array
 const displayProduct = (event) => {
     //don't use console.log debugger
-    console.log(event.target.dataset.id)
+   // console.log(event.target.dataset.id)
     const info =document.getElementById('info')
     const ul = document.getElementById('makeup-list')
     ul.innerHTML = " "
@@ -64,7 +68,7 @@ const displayProduct = (event) => {
         
         })
 
-
+        attachClicks()
     })
 }
 
@@ -72,11 +76,11 @@ const displayProduct = (event) => {
 const attachClicks = () =>{
 
 
-    displayProduct.forEach((displayProduct) => {
-        
-        displayProduct.addEventListener('click', displayInfo)
-    }
-    )
+    const product = document.querySelectorAll('a')
+
+    product.forEach((products) => {
+        products.addEventListener('click', displayInfo)
+})
 
 }
 
@@ -85,7 +89,7 @@ const displayInfo = (event) => {
     console.log(event.target.dataset.id)
     const info = document.getElementById('info')
     const ul = document.getElementById('makeup-list')
-    ul.innerHTML = ' '
+    ul.innerHTML = ""
     fetch( `https://makeup-api.herokuapp.com/api/v1/products.json/?product_type=${event.target.value}`)
     .then(res => res.json())
     .then(data => {
@@ -95,18 +99,16 @@ const displayInfo = (event) => {
         `
         <h1>${data.name}</h1><br/>
         <h3> Summary:</h3>
-        <p>${data.summary}</p>
-        <h3> Tags:</h3>
-        <p>${data.tag_list.join(", ")}</p>
+        <p>${data.description}/p>
         
-
         `
-
+        
 
     })
 
 
 }
 
-//questions: why won't it open up the summary information?
-//how do you change it to where it will allow for you to change options without refreshing the page
+
+//questions: why won't it display the information?
+//how to prevent other info from loading?
