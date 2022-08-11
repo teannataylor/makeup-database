@@ -27,4 +27,4 @@ Github Repo URL: https://github.com/ttaylor95/makeup-database
 
 3. After the drop-down is utilized, product displayed should be whicever was chosen under product type. 
 
-4. Once the new list is rendered, you can click on one of the items, it will send another fetch request to GET the information related to the item in terms of name, description, and assiociated tags.
+4. Once the new list is rendered, you can click on one of the items, it will send another fetch request to GET the information related to the item in terms of name and product description. 
